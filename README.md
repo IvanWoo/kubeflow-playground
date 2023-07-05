@@ -1,5 +1,15 @@
 # kubeflow-playground
 
+- [kubeflow-playground](#kubeflow-playground)
+  - [prerequisites](#prerequisites)
+  - [setup](#setup)
+    - [install kubeflow](#install-kubeflow)
+    - [local dev](#local-dev)
+  - [playground](#playground)
+    - [ping](#ping)
+    - [compile and run](#compile-and-run)
+  - [cleanup](#cleanup)
+
 ## prerequisites
 
 - [Rancher Desktop](https://github.com/rancher-sandbox/rancher-desktop): `1.9.0`
@@ -61,7 +71,3 @@ start the run
 ## cleanup
 
 TODO:
-
-```
-
-```
