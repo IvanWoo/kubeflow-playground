@@ -6,7 +6,6 @@
 - Kubernetes: `v1.25.10`
 - kubectl `v1.26.0`
 - Helm: `v3.11.2`
-- [kustomize](https://github.com/kubernetes-sigs/kustomize): `v5.1.0`
 - [PDM](https://pdm.fming.dev/latest/)
 
 ## setup
@@ -20,6 +19,12 @@
 `pdm install`
 
 ## playground
+
+port forward kubeflow server
+
+```sh
+kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
+```
 
 visit [kubeflow web ui](http://localhost:8080) after port-forwarding with credential
 
@@ -39,10 +44,24 @@ $ pdm run kubeflow_playground/ping.py | jq -c '.[].name'
 "[Tutorial] DSL - Control structures"
 ```
 
+### compile and run
+
 ```sh
-kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
+pdm run kubeflow_playground/pipelines/demo.py
 ```
+
+upload the pipeline via [kubeflow web ui](http://localhost:8080/_/pipeline/?ns=kubeflow-user-example-com#/pipeline_versions/new)
+
+![upload pipeline](./assets/upload_pipeline.png)
+
+start the run
+
+![start the run](./assets/start_run.png)
 
 ## cleanup
 
 TODO:
+
+```
+
+```
