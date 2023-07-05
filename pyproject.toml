@@ -1,0 +1,18 @@
+[project]
+name = "kubeflow_playground"
+version = "0.0.1"
+description = ""
+authors = [
+    {name = "Yifan Wu",email = "tyivanwu@gmail.com"},
+]
+dependencies = [
+    "kfp<2.0",
+    "black>=23.3.0",
+]
+requires-python = ">=3.9"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-pep517>=1.0.0"]
+build-backend = "pdm.pep517.api"

@@ -1,0 +1,4 @@
+[submodule "manifests"]
+	# FIXME: update to the official repo: https://github.com/kubeflow/manifests/issues/2472
+	path = manifests
+	url = https://github.com/hwang9u/manifests
