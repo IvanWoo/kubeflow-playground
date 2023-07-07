@@ -17,3 +17,5 @@ client = kfp.Client(
 pipelines = client.list_pipelines()
 out = json.dumps(pipelines.to_dict()["pipelines"], indent=4, default=str)
 print(out)
+
+client.create_experiment("demo", namespace="kubeflow-user-example-com")

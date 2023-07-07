@@ -1,8 +1,18 @@
 import kfp
 import kfp.dsl as dsl
 import kfp.components as comp
+from kubernetes.client.models import V1EnvVar
 
 from kubeflow_playground.io import ARTIFACTS_DIR
+
+
+def log_env_func():
+    import os
+    import logging
+
+    logging.basicConfig(level=logging.INFO)
+    env_variable = os.getenv("example_env")
+    logging.info(f"The environment variable is: {env_variable=}")
 
 
 def producer_op(text: str):
@@ -45,10 +55,18 @@ consumer_func_op = comp.create_component_from_func(
     base_image="python:3.7",
 )
 
+log_env_func_op = comp.func_to_container_op(
+    func=log_env_func,
+    base_image="python:3.9",
+)
+
 
 @dsl.pipeline(name="artifact-passing-pipeline")
 def artifact_passing_pipeline(text: str = "Hello world!", enable_fan_out: bool = False):
-    producer_task = producer_op(text)
+    env_var = V1EnvVar(name="example_env", value="env_variable")
+    log_env_task = log_env_func_op().add_env_variable(env_var)
+
+    producer_task = producer_op(text).after(log_env_task)
     text_artifact = producer_task.outputs["text-artifact"]
     consumer_task = consumer_op(text_artifact)
     consumer_func_task = consumer_func_op(text_artifact)
