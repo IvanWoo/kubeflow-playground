@@ -70,4 +70,4 @@ start the run
 
 ## cleanup
 
-TODO:
+`./scripts/uninstall.sh`
