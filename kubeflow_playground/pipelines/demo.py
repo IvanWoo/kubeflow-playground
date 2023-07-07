@@ -1,5 +1,6 @@
 import kfp
 import kfp.components as comp
+import kfp.dsl as dsl
 
 from kubeflow_playground.io import ARTIFACTS_DIR
 
@@ -29,8 +30,12 @@ web_downloader_op = kfp.components.load_component_from_url(
     "https://raw.githubusercontent.com/kubeflow/pipelines/master/components/contrib/web/Download/component.yaml"
 )
 
-# Define a pipeline and create a task from a component:
-def my_pipeline(url):
+
+@dsl.pipeline(
+    name="demo pipeline",
+    description="A demo pipeline.",
+)
+def my_pipeline(url: str):
     web_downloader_task = web_downloader_op(url=url)
     merge_csv_task = create_step_merge_csv(file=web_downloader_task.outputs["data"])
     # The outputs of the merge_csv_task can be referenced using the
