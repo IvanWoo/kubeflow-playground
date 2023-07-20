@@ -72,8 +72,9 @@ def artifact_passing_pipeline(text: str = "Hello world!", enable_fan_out: bool =
     consumer_func_task = consumer_func_op(text_artifact)
     with dsl.Condition(enable_fan_out == True):
         expansion_task = expand_parameters(text_artifact)
-        with dsl.ParallelFor(expansion_task.output, parallelism=4) as param:
-            _ = consumer_func_op(param)
+        with dsl.SubGraph(parallelism=1):
+            with dsl.ParallelFor(expansion_task.output) as param:
+                _ = consumer_func_op(param)
 
 
 kfp.compiler.Compiler().compile(

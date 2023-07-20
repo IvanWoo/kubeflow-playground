@@ -35,7 +35,7 @@ web_downloader_op = kfp.components.load_component_from_url(
     name="demo pipeline",
     description="A demo pipeline.",
 )
-def my_pipeline(url: str):
+def my_pipeline(url: "URI"):
     web_downloader_task = web_downloader_op(url=url)
     merge_csv_task = create_step_merge_csv(file=web_downloader_task.outputs["data"])
     # The outputs of the merge_csv_task can be referenced using the
